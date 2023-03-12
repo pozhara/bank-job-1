@@ -29,9 +29,17 @@ print("Hello, we are a recently opened bank,")
 print("thank you for starting your career with us.")
 print("Your next step is to add yourself as an employee to our system.\n")
 
+
 def clear():
     """
     Clears the terminal
     https://stackoverflow.com/questions/2084508/clear-terminal-in-python
     """
     system('clear')
+
+def wait():
+    """
+    Adds pause before going on.
+    https://www.pythoncentral.io/pythons-time-sleep-pause-wait-sleep-stop-your-code/
+    """
+    time.sleep(2.5)
