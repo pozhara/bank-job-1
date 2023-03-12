@@ -66,6 +66,21 @@ def check_name(name):
         return False
 
 
+def check_string(string):
+    regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
+    if len(string) > 25:
+        return False
+    elif len(string) < 1:
+        return False
+    elif string.isnumeric():
+        return False
+    elif not regex.search(string) is None:
+        return False
+    elif  not string.isalpha():
+        return False
+
+
+
 while True:
     try:
         """
@@ -147,7 +162,7 @@ while True:
             employee_birthday = cap_first_name + "," + cap_last_name + "," + str(age_day) + "," + str(age_month)
             employee_birthday = employee_birthday.split(",")
             employee_birthday_for_ws = [i.strip() for i in employee_birthday]
-            update_worksheet(employee_birthday_for_ws, "Birthday")
+            update_worksheet(employee_birthday_for_ws, "Birthdays")
         else:
             raise ValueError
         break
@@ -165,7 +180,8 @@ while True:
         employee_role = input("\nPlease enter your job role"
                               "(maximum 20 characters):\n")
         cap_employee_role = employee_role.capitalize()
-        if len(employee_role) < 1 or len(employee_role) > 20 or employee_role.isnumeric() or not employee_role.isalpha():
+        check_role = check_string(employee_role)
+        if check_role is False:
             raise ValueError
         elif len(employee_role) > 1:
             employee_data = cap_first_name + "," + cap_last_name + "," + cap_employee_role
@@ -349,7 +365,7 @@ def see_birthdays():
     Prints out employees' names and birthdays.
     Then waits and asks the user what they want to do.
     """
-    birthdays = SHEET.worksheet("Birthday").get_all_values()
+    birthdays = SHEET.worksheet("Birthdays").get_all_values()
     for row in birthdays:
         first_name_birthday = row[0]
         last_name_birthday = row[1]
