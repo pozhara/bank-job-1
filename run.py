@@ -70,3 +70,19 @@ while True:
     except ValueError:
         print("Please try again, enter your "
               "first name, maximum 20 characters.")
+
+while True:
+    try:
+        """
+        Asks for first name, checks for length,
+        the input not being a number or null.
+        Raises ValueError if input isn't valid.
+        """
+        last_name = input("\nPlease enter your last "
+                          "name(maximum 20 characters):\n")
+        cap_last_name = last_name.capitalize()
+        if len(last_name) < 1 or len(last_name) > 20 or last_name.isnumeric() or not last_name.isalpha():
+            raise ValueError
+        break
+    except ValueError:
+        print("Please try again, enter your last name, maximum 20 characters.")
