@@ -37,9 +37,19 @@ def clear():
     """
     system('clear')
 
+
 def wait():
     """
     Adds pause before going on.
     https://www.pythoncentral.io/pythons-time-sleep-pause-wait-sleep-stop-your-code/
     """
     time.sleep(2.5)
+
+
+def update_worksheet(data, worksheet):
+    """
+    Updates worksheet.
+    Code taken from Love Sandwiches.
+    """
+    worksheet_to_update = SHEET.worksheet(worksheet)
+    worksheet_to_update.append_row(data)
