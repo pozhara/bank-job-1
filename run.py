@@ -114,3 +114,28 @@ while True:
         break
     except ValueError:
         print('Value must be a positive number and must be between 1 and 12.')
+
+while True:
+    try:
+        """
+        Asks for birth year, calculates age of an employee.
+        Checks for it to be between 18 and 80.
+        If it's not, raises ValueError.
+        If it is, updates birthday worksheet.
+        """
+        age_year = int(input("\nPlease enter the year you were born:\n"))
+        date_of_birth = datetime.datetime(age_year, age_month, age_day)
+        age = (datetime.datetime.now() - date_of_birth)
+        days = int(age.days)
+        converted_years = days/365
+        employee_age = int(converted_years)
+        if employee_age >= 18 and employee_age < 80:
+            employee_birthday = cap_first_name + "," + cap_last_name + "," + str(age_day) + "," + str(age_month)
+            employee_birthday = employee_birthday.split(",")
+            employee_birthday_for_ws = [i.strip() for i in employee_birthday]
+            update_worksheet(employee_birthday_for_ws, "Birthday")
+        else:
+            raise ValueError
+        break
+    except ValueError:
+        print('Please try again, your age should be between 18 and 80.')
