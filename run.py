@@ -139,3 +139,28 @@ while True:
         break
     except ValueError:
         print('Please try again, your age should be between 18 and 80.')
+
+while True:
+    try:
+        """
+        Asks for a role. Checks for length
+        and input being a number or null.
+        If data is valid, it is added to employees worksheet.
+        If it isn't, raises a ValueError.
+        """
+        employee_role = input("\nPlease enter your job role"
+                              "(maximum 20 characters):\n")
+        cap_employee_role = employee_role.capitalize()
+        if len(employee_role) < 1 or len(employee_role) > 20 or employee_role.isnumeric() or not employee_role.isalpha():
+            raise ValueError
+        elif len(employee_role) > 1:
+            employee_data = cap_first_name + "," + cap_last_name + "," + cap_employee_role
+            employee_data = employee_data.split(",")
+            employee_data_for_ws = [i.strip() for i in employee_data]
+            update_worksheet(employee_data_for_ws, "Employees")
+            print("\nThank you, the data provided is "
+                  "valid and is now added to our database.\n")
+        break
+    except ValueError:
+        print("Please try again, your job role "
+              "should be 20 characters maximum.")
