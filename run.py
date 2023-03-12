@@ -289,3 +289,18 @@ def request_time_off(cap_first_name, cap_last_name):
     wait()
     wait()
     approve_request()
+
+
+def approve_request():
+    # Randomly approves or disapproves a request for time off.
+    random_number = random.randint(1, 10)
+    if random_number % 2 == 0:
+        print("Your request for time off was approved!")
+        wait()
+        return True
+        give_options()
+    else:
+        print("Your request for time off was not approved. "
+              "You can challenge disapproval if needed and "
+              "we will give you a call to discuss it.\n")
+        challenge_disapproval()
