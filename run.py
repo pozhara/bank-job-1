@@ -304,3 +304,27 @@ def approve_request():
               "You can challenge disapproval if needed and "
               "we will give you a call to discuss it.\n")
         challenge_disapproval()
+
+
+def challenge_disapproval():
+    # Lets the user challenge disapproval of request for a time off.
+    while True:
+        try:
+            challenge_choice = input("Do you want to "
+                                     "challenge disapproval? Y/N:\n")
+            if challenge_choice.capitalize() == "Y":
+                wait()
+                print("Thank you. We will get in touch soon to discuss it!")
+                wait()
+                return True
+                give_options()
+            elif challenge_choice.capitalize() == "N":
+                wait()
+                print("Thank you.")
+                wait()
+                return True
+                give_options()
+            else:
+                raise ValueError
+        except ValueError:
+            print("Please try again, enter Y or N.\n")
