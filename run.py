@@ -364,3 +364,24 @@ def see_birthdays():
     wait()
     return True
     give_options()
+
+
+def main(cap_first_name, cap_last_name):
+    """
+    Main function which calls other functions
+    based on user input.
+    """
+    while True:
+        give_options()
+        if user_input == 1:
+            request_time_off(cap_first_name, cap_last_name)
+        if user_input == 2:
+            see_birthdays()
+        if user_input == 3:
+            see_roles()
+        if user_input == 4:
+            clear()
+            sys.exit("You have exited the program. Thank you!")
+
+# Calling the main function
+main(cap_first_name, cap_last_name)
