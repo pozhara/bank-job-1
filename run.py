@@ -99,3 +99,18 @@ while True:
         break
     except ValueError:
         print('Value must be a positive number and cannot be greater than 31.')
+
+while True:
+    try:
+        """
+        Asks for birth month, checks for input being a number between 1 and 12.
+        If input is lower, higher, null or a string, raises ValueError.
+        """
+        age_month = int(input("\nPlease enter the month you were born:\n"))
+        if age_month > 12 or age_month < 1:
+            raise ValueError
+        elif age_month == 2 and age_day > 29:
+            raise ValueError
+        break
+    except ValueError:
+        print('Value must be a positive number and must be between 1 and 12.')
