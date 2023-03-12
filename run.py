@@ -54,6 +54,18 @@ def update_worksheet(data, worksheet):
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
 
+
+def check_name(name):
+    if len(name) < 1:
+        return False
+    elif len(name) > 20:
+        return False 
+    elif name.isnumeric():
+        return False
+    elif not name.isalpha():
+        return False
+
+
 while True:
     try:
         """
@@ -64,7 +76,8 @@ while True:
         first_name = input("\nPlease enter your"
                            " first name(maximum 20 characters):\n")
         cap_first_name = first_name.capitalize()
-        if len(first_name) < 1 or len(first_name) > 20 or first_name.isnumeric() or not first_name.isalpha():
+        check_first_name = check_name(first_name)
+        if check_first_name is False:
             raise ValueError
         break
     except ValueError:
@@ -81,7 +94,8 @@ while True:
         last_name = input("\nPlease enter your last "
                           "name(maximum 20 characters):\n")
         cap_last_name = last_name.capitalize()
-        if len(last_name) < 1 or len(last_name) > 20 or last_name.isnumeric() or not last_name.isalpha():
+        check_last_name = check_name(last_name)
+        if check_last_name is False:
             raise ValueError
         break
     except ValueError:
@@ -348,19 +362,18 @@ def see_birthdays():
     give_options()
 
 
-def see_birthdays():
+def see_roles():
     """
-    Prints out employees' names and birthdays.
+    Prints out employees and their roles.
     Then waits and asks the user what they want to do.
     """
-    birthdays = SHEET.worksheet("Birthday").get_all_values()
-    for row in birthdays:
-        first_name_birthday = row[0]
-        last_name_birthday = row[1]
-        age_day_birthday = row[2]
-        age_month_birthday = row[3]
-        employees_birthday = last_name_birthday + ", " + first_name_birthday + ": " + age_day_birthday + "." + age_month_birthday
-        print(employees_birthday)
+    employees = SHEET.worksheet("Employees").get_all_values()
+    for row in employees:
+        employee_fname = row[0]
+        employee_lname = row[1]
+        role = row[2]
+        data_to_print = employee_lname + ", " + employee_fname + " - " + role
+        print(data_to_print)
     wait()
     return True
     give_options()
@@ -382,6 +395,7 @@ def main(cap_first_name, cap_last_name):
         if user_input == 4:
             clear()
             sys.exit("You have exited the program. Thank you!")
+
 
 # Calling the main function
 main(cap_first_name, cap_last_name)
