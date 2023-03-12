@@ -200,3 +200,92 @@ def give_options():
         except ValueError:
             print("\nPlease try again, enter a number between 1 and 4.\n")
         return user_input
+
+
+def request_time_off(cap_first_name, cap_last_name):
+    """
+    Asks for starting and ending date
+    and a reason for a day off.
+    If the data is valid,
+    request a day off worksheet is updated,
+    waits a bit and asks what user wants to do next.
+    """
+    print("You are currently requesting time off. "
+          "We will need you to provide starting "
+          "and ending date, and a reason.\n")
+    while True:
+        user_name = "Your name is " + cap_first_name + " " + cap_last_name + "."
+        print(user_name)
+        try:
+            """
+            Asks for starting date.
+            If it's lower than 01.01,
+            higher than 31.12, is integer,
+            numbers after comma are higher
+            than 12 and if there are
+            more than 2 numbers after comma,
+            raises a ValueError.
+            Approves or disapproves a request.
+            If request is disapproved,
+            user can challenge it.
+            https://stackoverflow.com/questions/3886402/how-to-get-numbers-after-decimal-point
+            """
+            starting_date = float(input("\nPlease enter a starting date"
+                                        " (For example: 01.02):\n"))
+            whole = math.floor(starting_date)
+            frac = starting_date - whole
+            needed_decimal = '0.23'
+            if starting_date > 31.12 or starting_date < 01.01 or starting_date.is_integer() or frac > 0.12 or len(needed_decimal) > len(str(starting_date)):
+                raise ValueError
+            break
+        except ValueError:
+            print("Please try again, provide it like this: 01.02\n")
+    while True:
+        try:
+            """
+            Asks for ending date.
+            If it's lower than 01.01,
+            higher than 31.12, is integer,
+            numbers after comma are higher
+            than 12 or there are
+            more than 2 numbers after comma,
+            raises a ValueError.
+            """
+            ending_date = float(input("\nPlease enter an ending date"
+                                      " (For example: 01.02):\n"))
+            whole_two = math.floor(ending_date)
+            frac_two = ending_date - whole_two
+            if ending_date > 31.12 or ending_date < 01.01 or ending_date.is_integer() or frac_two > 0.12 or len(needed_decimal) > len(str(ending_date)) or ending_date < starting_date:
+                raise ValueError
+            break
+        except ValueError:
+            print("Please try again, provide it like this: 01.02")
+    while True:
+        try:
+            """
+            Asks for a reason.
+            If it's length is higher than 25 or null,
+            or if it's a number, raises ValueError.
+            Otherwise, updates day off requests
+            worksheet and thanks the user.
+            https://stackoverflow.com/questions/57062794/how-to-check-if-a-string-has-any-special-characters
+            """
+            user_reason = input("\nPlease provide a reason"
+                                " (maximum 25 characters):\n")
+            regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
+            if len(user_reason) > 25 or len(user_reason) < 1 or user_reason.isnumeric() or not regex.search(user_reason) is None:
+                raise ValueError
+            else:
+                request_data = cap_first_name + "," + cap_last_name + "," + str(starting_date) + "," + str(ending_date) + "," + user_reason
+                request_data = request_data.split(",")
+                request_data_for_sw = [i.strip() for i in request_data]
+                update_worksheet(request_data_for_sw, "Day Off Requests")
+                print("\nPlease wait, we are processing your request...\n")
+            break
+        except ValueError:
+            print("Please provide a reason, maximum 25 characters. "
+                  "You can write a number as long "
+                  "as it's not at the beginning.")
+    wait()
+    wait()
+    approve_request()
