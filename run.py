@@ -76,7 +76,7 @@ def check_string(string):
         return False
     elif not regex.search(string) is None:
         return False
-    elif  not string.isalpha():
+    elif not string.isalpha():
         return False
 
 
@@ -178,7 +178,7 @@ while True:
         If it isn't, raises a ValueError.
         """
         employee_role = input("\nPlease enter your job role"
-                              "(maximum 20 characters):\n")
+                              "(maximum 25 characters):\n")
         cap_employee_role = employee_role.capitalize()
         check_role = check_string(employee_role)
         if check_role is False:
@@ -194,13 +194,6 @@ while True:
     except ValueError:
         print("Please try again, your job role "
               "should be 20 characters maximum.")
-
-
-def check_choice(number):
-    if number >= 1 and number <= 4:
-        return True
-    elif number < 1 or number > 4:
-        return False
 
 
 def give_options():
@@ -220,16 +213,16 @@ def give_options():
         try:
             global user_input
             user_input = int(input("Please enter a number:\n"))
-            if check_choice(user_input):
+            if user_input >= 1 and user_input <= 4:
                 print("\nPlease wait, we are processing your request...\n")
                 wait()
                 clear()
+                return user_input
             else:
                 raise ValueError
             break
         except ValueError:
             print("\nPlease try again, enter a number between 1 and 4.\n")
-        return user_input
 
 
 def request_time_off(cap_first_name, cap_last_name):
@@ -309,7 +302,7 @@ def request_time_off(cap_first_name, cap_last_name):
                 request_data = cap_first_name + "," + cap_last_name + "," + str(starting_date) + "," + str(ending_date) + "," + user_reason
                 request_data = request_data.split(",")
                 request_data_for_sw = [i.strip() for i in request_data]
-                update_worksheet(request_data_for_sw, "Day Off Requests")
+                update_worksheet(request_data_for_sw, "Time Off Requests")
                 print("\nPlease wait, we are processing your request...\n")
             break
         except ValueError:
