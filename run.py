@@ -86,3 +86,16 @@ while True:
         break
     except ValueError:
         print("Please try again, enter your last name, maximum 20 characters.")
+
+while True:
+    try:
+        """
+        Asks for birth day, checks for input being a number between 1 and 31.
+        If it's lower, higher, null or a string, raises ValueError.
+        """
+        age_day = int(input("\nPlease enter the day you were born:\n"))
+        if age_day > 31 or age_day < 1:
+            raise ValueError
+        break
+    except ValueError:
+        print('Value must be a positive number and cannot be greater than 31.')
