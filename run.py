@@ -59,7 +59,7 @@ def check_name(name):
     if len(name) < 1:
         return False
     elif len(name) > 20:
-        return False 
+        return False
     elif name.isnumeric():
         return False
     elif not name.isalpha():
@@ -67,7 +67,7 @@ def check_name(name):
 
 
 def check_string(string):
-    regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
+    regex = re.compile('[@_!#$%^&*()<>?/|}{~:]')
     if len(string) > 25:
         return False
     elif len(string) < 1:
@@ -78,7 +78,6 @@ def check_string(string):
         return False
     elif not string.isalpha():
         return False
-
 
 
 while True:
