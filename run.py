@@ -53,3 +53,20 @@ def update_worksheet(data, worksheet):
     """
     worksheet_to_update = SHEET.worksheet(worksheet)
     worksheet_to_update.append_row(data)
+
+while True:
+    try:
+        """
+        Asks for first name, checks for length,
+        the input not being a number or null.
+        Raises ValueError if input isn't valid.
+        """
+        first_name = input("\nPlease enter your"
+                           " first name(maximum 20 characters):\n")
+        cap_first_name = first_name.capitalize()
+        if len(first_name) < 1 or len(first_name) > 20 or first_name.isnumeric() or not first_name.isalpha():
+            raise ValueError
+        break
+    except ValueError:
+        print("Please try again, enter your "
+              "first name, maximum 20 characters.")
