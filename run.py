@@ -164,3 +164,10 @@ while True:
     except ValueError:
         print("Please try again, your job role "
               "should be 20 characters maximum.")
+
+
+def check_choice(number):
+    if number >= 1 and number <= 4:
+        return True
+    elif number < 1 or number > 4:
+        return False
