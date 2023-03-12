@@ -328,3 +328,21 @@ def challenge_disapproval():
                 raise ValueError
         except ValueError:
             print("Please try again, enter Y or N.\n")
+
+
+def see_birthdays():
+    """
+    Prints out employees' names and birthdays.
+    Then waits and asks the user what they want to do.
+    """
+    birthdays = SHEET.worksheet("Birthday").get_all_values()
+    for row in birthdays:
+        first_name_birthday = row[0]
+        last_name_birthday = row[1]
+        age_day_birthday = row[2]
+        age_month_birthday = row[3]
+        employees_birthday = last_name_birthday + ", " + first_name_birthday + ": " + age_day_birthday + "." + age_month_birthday
+        print(employees_birthday)
+    wait()
+    return True
+    give_options()
