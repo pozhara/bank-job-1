@@ -171,3 +171,32 @@ def check_choice(number):
         return True
     elif number < 1 or number > 4:
         return False
+
+
+def give_options():
+    """
+    Asks user what they want to do,
+    checks user input to be a number between 1 and 4.
+    If it is, clears terminal, waits a bit
+    and does what the user chose.
+    If it's not, raises ValueError.
+    """
+    print("\nWhat would you like to do?\n"
+          "1. Request time off.\n"
+          "2. See your colleagues' birthdays.\n"
+          "3. See your colleagues' names and roles.\n"
+          "4. Exit.")
+    while True:
+        try:
+            global user_input
+            user_input = int(input("Please enter a number:\n"))
+            if check_choice(user_input):
+                print("\nPlease wait, we are processing your request...\n")
+                wait()
+                clear()
+            else:
+                raise ValueError
+            break
+        except ValueError:
+            print("\nPlease try again, enter a number between 1 and 4.\n")
+        return user_input
