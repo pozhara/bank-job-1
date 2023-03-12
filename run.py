@@ -225,6 +225,30 @@ def give_options():
             print("\nPlease try again, enter a number between 1 and 4.\n")
 
 
+def check_date(first_date, second_date):
+    whole = math.floor(first_date)
+    frac = first_date - whole
+    needed_decimal = '0.23'
+    whole_two = math.floor(second_date)
+    frac_two = second_date - whole_two
+    if first_date > 31.12 or second_date > 31.12:
+        return False
+    elif first_date < 01.01 or second_date < 01.01:
+        return False
+    elif first_date.is_integer() or second_date.is_integer():
+        return False
+    elif frac > 0.12:
+        return False
+    elif len(needed_decimal) > len(str(first_date)):
+        return False
+    elif frac_two > 0.12:
+        return False
+    elif len(needed_decimal) > len(str(second_date)):
+        return False
+    elif second_date < first_date:
+        return False
+
+
 def request_time_off(cap_first_name, cap_last_name):
     """
     Asks for starting and ending date
@@ -255,34 +279,14 @@ def request_time_off(cap_first_name, cap_last_name):
             """
             starting_date = float(input("\nPlease enter a starting date"
                                         " (For example: 01.02):\n"))
-            whole = math.floor(starting_date)
-            frac = starting_date - whole
-            needed_decimal = '0.23'
-            if starting_date > 31.12 or starting_date < 01.01 or starting_date.is_integer() or frac > 0.12 or len(needed_decimal) > len(str(starting_date)):
-                raise ValueError
-            break
-        except ValueError:
-            print("Please try again, provide it like this: 01.02\n")
-    while True:
-        try:
-            """
-            Asks for ending date.
-            If it's lower than 01.01,
-            higher than 31.12, is integer,
-            numbers after comma are higher
-            than 12 or there are
-            more than 2 numbers after comma,
-            raises a ValueError.
-            """
             ending_date = float(input("\nPlease enter an ending date"
                                       " (For example: 01.02):\n"))
-            whole_two = math.floor(ending_date)
-            frac_two = ending_date - whole_two
-            if ending_date > 31.12 or ending_date < 01.01 or ending_date.is_integer() or frac_two > 0.12 or len(needed_decimal) > len(str(ending_date)) or ending_date < starting_date:
+            check_dates = check_date(starting_date, ending_date)
+            if check_dates is False:
                 raise ValueError
             break
         except ValueError:
-            print("Please try again, provide it like this: 01.02")
+            print("Please try again, provide both dates like this: 01.02\n")
     while True:
         try:
             """
@@ -295,8 +299,8 @@ def request_time_off(cap_first_name, cap_last_name):
             """
             user_reason = input("\nPlease provide a reason"
                                 " (maximum 25 characters):\n")
-            regex = re.compile('[@_!#$%^&*()<>?/\|}{~:]')
-            if len(user_reason) > 25 or len(user_reason) < 1 or user_reason.isnumeric() or not regex.search(user_reason) is None:
+            check_reason = check_string(user_reason)
+            if check_reason is False:
                 raise ValueError
             else:
                 request_data = cap_first_name + "," + cap_last_name + "," + str(starting_date) + "," + str(ending_date) + "," + user_reason
