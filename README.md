@@ -2,7 +2,7 @@
 
 Bank Job is a program that lets a user register as an employee in a newly opened bank. Then gives options on what to do next: request time off, see colleagues birthdays or roles, or exit.
 
-The live link to the program: 
+The live link to the program: https://bank-job-1-deeb9807c20b.herokuapp.com/
 
 The link to my spreadsheet: https://docs.google.com/spreadsheets/d/1N03w9rAJayG3nh7lOci08hh7wfdyyx29W0SEawhHDU8/edit#gid=843795652
 
@@ -30,7 +30,7 @@ Number inputs are checked for:
 
 - then program calculates exact age based on the year input, if user is underage or older than 80, then they have to try again.
 
-![Introduction and registering]()
+![Introduction and registering](images/register.jpg)
 
 Then worksheet gets updated and the menu appears that asks user what they want to do. Options are:
 
@@ -39,7 +39,7 @@ Then worksheet gets updated and the menu appears that asks user what they want t
 3. See your colleagues' names and roles.
 4. Exit.
 
-![Main menu]()
+![Main menu](images/mainmenu.jpg)
 
 ## Request time off
 
@@ -63,7 +63,9 @@ Reason is checked for:
 
 - being null.
 
-![Request time off]()
+![Request time off](images/request.jpg)
+
+![Request time off worksheet](images/requestsheet.jpg)
 
 Once the user completes requesting, worksheet is updated and program gets a random number between 1 and 10 to approve or disapprove the request.
 
@@ -75,33 +77,33 @@ Challenge input is checked for:
 
 If their input is Y, they get a message that someone will contact them soon and then the menu appears, asking user what they want to do. If their input was N, they get a thank you message and the menu appears.
 
-![Approval or disapproval of request]()
+![Approval or disapproval of request](images/request-validation.jpg)
 
 ## Colleagues' birthdays
 
 Program first states how colleagues' birthday will be printed out and then prints them out.
 
-![Colleagues' birthdays]()
+![Colleagues' birthdays](images/see-birthdays.jpg)
 
 Data is taken from birthdays list in the worksheet.
 
-![Colleagues' birthdays worksheet]()
+![Colleagues' birthdays worksheet](images/employees.jpg)
 
 ## Colleagues' names and roles
 
 Program first states how data will be printed out and then prints it out.
 
-![Colleagues' names and roles]()
+![Colleagues' names and roles](images/see-roles.jpg)
 
 Data is taken from employees list in the worksheet.
 
-![Colleagues' names and roles worksheet]()
+![Colleagues' names and roles worksheet](images/employeesroles.jpg)
 
 ## Exit
 
 When user enters number 4, terminal clears and then prints out a thank you message.
 
-![Exit option]()
+![Exit option](images/exit.jpg)
 
 # Frameworks and libraries used
 
@@ -144,6 +146,26 @@ Didn't have while True at first so the program was asking the same question agai
 The fixed bug that I thought would be remaining unfixed is if user picks request time off option, do what the program tells them then immediately after this user picks the first option again, they will get main menu. Then if they immediately pick 1 once again, they can request time off.
 
 This is a resubmission and the failed task was checking the main menu for anything other than numbers between 1 and 4, the terminal crashed if the input was something else. 
+
+## App testing
+
+### Registering as an employee
+
+![First name](images/firstname.jpg)
+
+![Last name](images/lastname.jpg)
+
+![Age](images/agetesting.jpg)
+
+![Role](images/jobroletesting.jpg)
+
+### Main menu
+
+![Main menu](images/userinputtesting.jpg)
+
+### Challenge disapproval
+
+![Challenge disapproval](images/disapprovaltesting.jpg)
 
 # Deployment
 
