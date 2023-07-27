@@ -1,3 +1,7 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+
 import datetime  # to check age
 import math  # to check decimal
 import sys  # to exit the program
@@ -56,37 +60,42 @@ def update_worksheet(data, worksheet):
 
 
 def check_name(name):
+    # Checks name for length and having numbers
     if len(name) < 1:
         return False
-    elif len(name) > 20:
+    if len(name) > 20:
         return False
-    elif name.isnumeric():
+    if name.isnumeric():
         return False
-    elif not name.isalpha():
+    if not name.isalpha():
         return False
+    return name
 
 
 def check_string(string):
+    """
+    Checks strings for length, having numbers
+    or special characters.
+    """
     regex = re.compile('[@_!#$%^&*()<>?/|}{~:]')
     if len(string) > 25:
         return False
-    elif len(string) < 1:
+    if len(string) < 1:
         return False
-    elif string.isnumeric():
+    if string.isnumeric():
         return False
-    elif not regex.search(string) is None:
+    if not regex.search(string) is None:
         return False
-    elif not string.isalpha():
+    if not string.isalpha():
         return False
+    return string
 
 
+# Asks for first name, checks for length,
+# the input not being a number or null.
+# Raises ValueError if input isn't valid.
 while True:
     try:
-        """
-        Asks for first name, checks for length,
-        the input not being a number or null.
-        Raises ValueError if input isn't valid.
-        """
         first_name = input("\nPlease enter your"
                            " first name(maximum 20 characters):\n")
         cap_first_name = first_name.capitalize()
@@ -98,13 +107,11 @@ while True:
         print("Please try again, enter your "
               "first name, maximum 20 characters.")
 
+# Asks for first name, checks for length,
+# the input not being a number or null.
+# Raises ValueError if input isn't valid.
 while True:
     try:
-        """
-        Asks for first name, checks for length,
-        the input not being a number or null.
-        Raises ValueError if input isn't valid.
-        """
         last_name = input("\nPlease enter your last "
                           "name(maximum 20 characters):\n")
         cap_last_name = last_name.capitalize()
@@ -115,12 +122,10 @@ while True:
     except ValueError:
         print("Please try again, enter your last name, maximum 20 characters.")
 
+# Asks for birth day, checks for input being a number between 1 and 31.
+# If it's lower, higher, null or a string, raises ValueError.
 while True:
     try:
-        """
-        Asks for birth day, checks for input being a number between 1 and 31.
-        If it's lower, higher, null or a string, raises ValueError.
-        """
         age_day = int(input("\nPlease enter the day you were born:\n"))
         if age_day > 31 or age_day < 1:
             raise ValueError
@@ -128,12 +133,10 @@ while True:
     except ValueError:
         print('Value must be a positive number and cannot be greater than 31.')
 
+# Asks for birth month, checks for input being a number between 1 and 12.
+# If input is lower, higher, null or a string, raises ValueError.
 while True:
     try:
-        """
-        Asks for birth month, checks for input being a number between 1 and 12.
-        If input is lower, higher, null or a string, raises ValueError.
-        """
         age_month = int(input("\nPlease enter the month you were born:\n"))
         if age_month > 12 or age_month < 1:
             raise ValueError
@@ -143,22 +146,21 @@ while True:
     except ValueError:
         print('Value must be a positive number and must be between 1 and 12.')
 
+# Asks for birth year, calculates age of an employee.
+# Checks for it to be between 18 and 80.
+# If it's not, raises ValueError.
+# If it is, updates birthday worksheet.
 while True:
     try:
-        """
-        Asks for birth year, calculates age of an employee.
-        Checks for it to be between 18 and 80.
-        If it's not, raises ValueError.
-        If it is, updates birthday worksheet.
-        """
         age_year = int(input("\nPlease enter the year you were born:\n"))
         date_of_birth = datetime.datetime(age_year, age_month, age_day)
-        age = (datetime.datetime.now() - date_of_birth)
+        age = datetime.datetime.now() - date_of_birth
         days = int(age.days)
         converted_years = days/365
         employee_age = int(converted_years)
         if employee_age >= 18 and employee_age < 80:
-            employee_birthday = cap_first_name + "," + cap_last_name + "," + str(age_day) + "," + str(age_month)
+            employee_birthday = (cap_first_name + "," + cap_last_name +
+                                 "," + str(age_day) + "," + str(age_month))
             employee_birthday = employee_birthday.split(",")
             employee_birthday_for_ws = [i.strip() for i in employee_birthday]
             update_worksheet(employee_birthday_for_ws, "Birthdays")
@@ -168,14 +170,12 @@ while True:
     except ValueError:
         print('Please try again, your age should be between 18 and 80.')
 
+# Asks for a role. Checks for length
+# and input being a number or null.
+# If data is valid, it is added to employees worksheet.
+# If it isn't, raises a ValueError.
 while True:
     try:
-        """
-        Asks for a role. Checks for length
-        and input being a number or null.
-        If data is valid, it is added to employees worksheet.
-        If it isn't, raises a ValueError.
-        """
         employee_role = input("\nPlease enter your job role"
                               "(maximum 25 characters):\n")
         cap_employee_role = employee_role.capitalize()
@@ -183,7 +183,8 @@ while True:
         if check_role is False:
             raise ValueError
         elif len(employee_role) > 1:
-            employee_data = cap_first_name + "," + cap_last_name + "," + cap_employee_role
+            employee_data = (cap_first_name + "," + cap_last_name +
+                             "," + cap_employee_role)
             employee_data = employee_data.split(",")
             employee_data_for_ws = [i.strip() for i in employee_data]
             update_worksheet(employee_data_for_ws, "Employees")
@@ -224,6 +225,7 @@ def give_options():
             print("\nPlease try again, enter a number between 1 and 4.\n")
 
 
+# Function for checking date
 def check_date(first_date, second_date):
     whole = math.floor(first_date)
     frac = first_date - whole
@@ -260,22 +262,11 @@ def request_time_off(cap_first_name, cap_last_name):
           "We will need you to provide starting "
           "and ending date, and a reason.\n")
     while True:
-        user_name = "Your name is " + cap_first_name + " " + cap_last_name + "."
+        user_name = ("Your name is " + cap_first_name +
+                     " " + cap_last_name + ".")
         print(user_name)
         try:
-            """
-            Asks for starting date.
-            If it's lower than 01.01,
-            higher than 31.12, is integer,
-            numbers after comma are higher
-            than 12 and if there are
-            more than 2 numbers after comma,
-            raises a ValueError.
-            Approves or disapproves a request.
-            If request is disapproved,
-            user can challenge it.
-            https://stackoverflow.com/questions/3886402/how-to-get-numbers-after-decimal-point
-            """
+            # https://stackoverflow.com/questions/3886402/how-to-get-numbers-after-decimal-point
             starting_date = float(input("\nPlease enter a starting date"
                                         " (For example: 01.02):\n"))
             ending_date = float(input("\nPlease enter an ending date"
@@ -288,21 +279,16 @@ def request_time_off(cap_first_name, cap_last_name):
             print("Please try again, provide both dates like this: 01.02\n")
     while True:
         try:
-            """
-            Asks for a reason.
-            If it's length is higher than 25 or null,
-            or if it's a number, raises ValueError.
-            Otherwise, updates day off requests
-            worksheet and thanks the user.
-            https://stackoverflow.com/questions/57062794/how-to-check-if-a-string-has-any-special-characters
-            """
+            # https://stackoverflow.com/questions/57062794/how-to-check-if-a-string-has-any-special-characters
             user_reason = input("\nPlease provide a reason"
                                 " (maximum 25 characters):\n")
             check_reason = check_string(user_reason)
             if check_reason is False:
                 raise ValueError
             else:
-                request_data = cap_first_name + "," + cap_last_name + "," + str(starting_date) + "," + str(ending_date) + "," + user_reason
+                request_data = (cap_first_name + "," + cap_last_name + "," +
+                                str(starting_date) + "," + str(ending_date)
+                                + "," + user_reason)
                 request_data = request_data.split(",")
                 request_data_for_sw = [i.strip() for i in request_data]
                 update_worksheet(request_data_for_sw, "Time Off Requests")
@@ -317,8 +303,8 @@ def request_time_off(cap_first_name, cap_last_name):
     approve_request()
 
 
+# Randomly approves or disapproves a request for time off.
 def approve_request():
-    # Randomly approves or disapproves a request for time off.
     random_number = random.randint(1, 10)
     if random_number % 2 == 0:
         print("Your request for time off was approved!")
@@ -332,8 +318,8 @@ def approve_request():
         challenge_disapproval()
 
 
+# Lets the user challenge disapproval of request for a time off.
 def challenge_disapproval():
-    # Lets the user challenge disapproval of request for a time off.
     while True:
         try:
             challenge_choice = input("Do you want to "
@@ -367,7 +353,9 @@ def see_birthdays():
         last_name_birthday = row[1]
         age_day_birthday = row[2]
         age_month_birthday = row[3]
-        employees_birthday = last_name_birthday + ", " + first_name_birthday + ": " + age_day_birthday + "." + age_month_birthday
+        employees_birthday = (last_name_birthday + ", " + first_name_birthday +
+                              ": " + age_day_birthday + "." +
+                              age_month_birthday)
         print(employees_birthday)
     wait()
     return True
